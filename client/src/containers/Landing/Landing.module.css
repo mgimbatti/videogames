@@ -1,0 +1,63 @@
+@font-face {
+    font-family: PressStart2P;
+    src: url("../../resources/PressStart2P-Regular.ttf");
+}
+
+.landing {
+    height: 100%;
+    background: url('../../resources/mario_landing.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    display: flex;
+}
+
+.title {
+    margin-top: 150px;
+    margin-left: 220px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: center;
+   
+}  
+
+
+.title h1 {
+    font-family: 'PressStart2P', sans-serif;
+    font-size: 300%;
+    color: #f9f3f4;
+    margin: 0;
+
+}
+
+.title h2 {
+    font-family: 'PressStart2P', sans-serif;
+    font-size: 200%;
+    color: #f9f3f4;
+    margin-top: 30px;
+
+}
+
+.btn {
+    font-family: 'PressStart2P', sans-serif;
+    margin-top: 80px;
+    font-size: 200%;
+    border-radius: 10px;
+    background: rgba(0,0,0,.2);
+    color: white;
+    font-weight: bold;
+    border: 2px white;
+    padding: 30px 30px;
+}
+
+
+.btn:hover {
+    box-shadow: 0 0 5px #fff;
+    transform: scale(1.1);
+    color: rgba(0, 0, 0, 0.678);
+    background: white; 
+}

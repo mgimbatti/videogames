@@ -1,0 +1,26 @@
+@font-face {
+    font-family: PressStart2P;
+    src: url("../resources/PressStart2P-Regular.ttf");
+  }
+  
+  .loading {
+      font-family: 'PressStart2P', sans-serif;
+        top: 11vh;
+        color: rgba(37, 37, 37);
+        position: relative;        
+    }
+
+    .image {
+        display: block;
+        height: 150px;
+        width: 150px;
+        margin-top: 50px;
+        margin-left: 675px;
+     
+    }
+    
+    .image img {
+        height: 100%;
+        width: auto; 
+        border-radius: 20px;
+    }
