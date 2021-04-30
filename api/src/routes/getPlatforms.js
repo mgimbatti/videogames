@@ -10,7 +10,7 @@ router.get('/', async function getAllPlatforms(req, res) {
         const platforms = await axios.get(`${BASE_URL}${PLATFORMS_URL}?key=${API_KEY}`)
         platforms.data.results && platforms.data.results.map(async (p) => {
             await Platform.findOrCreate({
-                where: { id: p.id, name: p.name}
+                where: { id: p.id, name: p.name }
             });
         });
         const platformsDB = await Platform.findAll();

@@ -1,4 +1,4 @@
-import {GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, GET_GENRES, GET_PLATFORMS, ADD_VIDEOGAME, RESET_STORE, RESET_VIDEOGAMES, LOADING, FILTER_BY_GENRE, FILTER_BY_ORIGIN, ORDER_NAME_ASC, ORDER_NAME_ASC_ALL, ORDER_NAME_DESC, ORDER_NAME_DESC_ALL, ORDER_RATING_ASC, ORDER_RATING_ASC_ALL, ORDER_RATING_DESC, ORDER_RATING_DESC_ALL} from '../actions/index'
+import { GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, GET_GENRES, GET_PLATFORMS, ADD_VIDEOGAME, RESET_STORE, RESET_VIDEOGAMES, LOADING, FILTER_BY_GENRE, FILTER_BY_ORIGIN, ORDER_NAME_ASC, ORDER_NAME_ASC_ALL, ORDER_NAME_DESC, ORDER_NAME_DESC_ALL, ORDER_RATING_ASC, ORDER_RATING_ASC_ALL, ORDER_RATING_DESC, ORDER_RATING_DESC_ALL } from '../actions/index'
 
 const initialState = {
     videogames: [],
@@ -40,11 +40,11 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 platforms: action.payload
             }
-         case ADD_VIDEOGAME:
-                return {
-                    ...state,
-                    videogames: [],
-                }
+        case ADD_VIDEOGAME:
+            return {
+                ...state,
+                videogames: [],
+            }
 
         case RESET_STORE:
             return {
@@ -63,7 +63,7 @@ export default function rootReducer(state = initialState, action) {
                 filterByGenre: 'All',
                 filterByOrigin: 'All'
             }
-        
+
         case LOADING:
             return {
                 ...state,
@@ -84,33 +84,33 @@ export default function rootReducer(state = initialState, action) {
                 filterByOrigin: action.payload.origin,
             };
 
-            case ORDER_NAME_ASC_ALL:
-                return {
-                    ...state,
-                    videogames: action.payload.videogamesOrdered,
-                    orderBy: action.payload.name,
-                };
-    
-            case ORDER_RATING_ASC_ALL:
-                return {
-                    ...state,
-                    videogames: action.payload.videogamesOrdered,
-                    orderBy: action.payload.name,
-                };
-    
-            case ORDER_NAME_DESC_ALL:
-                return {
-                    ...state,
-                    videogames: action.payload.videogamesOrdered,
-                    orderBy: action.payload.name,
-                };
-    
-            case ORDER_RATING_DESC_ALL:
-                return {
-                    ...state,
-                    videogames: action.payload.videogamesOrdered,
-                    orderBy: action.payload.name,
-                };
+        case ORDER_NAME_ASC_ALL:
+            return {
+                ...state,
+                videogames: action.payload.videogamesOrdered,
+                orderBy: action.payload.name,
+            };
+
+        case ORDER_RATING_ASC_ALL:
+            return {
+                ...state,
+                videogames: action.payload.videogamesOrdered,
+                orderBy: action.payload.name,
+            };
+
+        case ORDER_NAME_DESC_ALL:
+            return {
+                ...state,
+                videogames: action.payload.videogamesOrdered,
+                orderBy: action.payload.name,
+            };
+
+        case ORDER_RATING_DESC_ALL:
+            return {
+                ...state,
+                videogames: action.payload.videogamesOrdered,
+                orderBy: action.payload.name,
+            };
 
         case ORDER_NAME_ASC:
             return {

@@ -27,7 +27,6 @@ export default function Filter() {
 
   const handleOrder = (e) => {
     if (e.target.value === NAME_ASC || e.target.value === RATING_ASC) {
-      console.log('Hola', e.target.value)
       dispatch(orderAsc(e.target.value));
     } else {
       dispatch(orderDesc(e.target.value));

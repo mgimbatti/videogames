@@ -38,7 +38,7 @@ function Form() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(state)
+    //If change is on Genres or Platforms, i need to concatenate with previous state values.
     if (name === "genres" || name === "platforms") {
       const arr = state[name];
       setState({
@@ -51,6 +51,7 @@ function Form() {
         [name]: value,
       });
     }
+    //Calls validate function
     validate();
   };
 

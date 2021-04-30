@@ -19,6 +19,7 @@ export default function Home() {
 
     
     useEffect(() => {
+      // to avoid dispatching action if videogames array is not modified
       if (!videogames.length < 100) {
         dispatch(getVideogames())   
       }        
@@ -37,12 +38,12 @@ export default function Home() {
     const [page, setPage] = useState(1);
     const [videogamesPerPage] = useState(9);
   
+    // index of the last game of each page
     let indexLastPage = page * videogamesPerPage;
-    // index of the last element of each page
-    let indexFirtsPage = indexLastPage - videogamesPerPage;
     // index of the first element of each page
-    let currentPage = allVideogames.slice(indexFirtsPage, indexLastPage);
+    let indexFirtsPage = indexLastPage - videogamesPerPage;
     // videogames of the current page
+    let currentPage = allVideogames.slice(indexFirtsPage, indexLastPage);
   
     return (
       <div>

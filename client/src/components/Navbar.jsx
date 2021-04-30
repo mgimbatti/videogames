@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import s from './Navbar.module.css';
 
 export default function NavBar() {
@@ -33,7 +33,7 @@ export default function NavBar() {
           onChange={(e) => setName(e.target.value)}
           placeholder='Search videogame...'
           type='text'
-          className ={s.input}
+          className={s.input}
         ></input>
         <Link to={`/videogames/${name}`}>
           <button type='submit' className={s.btn}>Go

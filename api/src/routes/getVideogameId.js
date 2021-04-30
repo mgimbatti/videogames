@@ -12,14 +12,12 @@ const router = Router();
 
 router.get('/:id', async function getVideogameById(req, res) {
     const id = req.params.id;
-    console.log(id)
     const uuidValidator = id.includes('-');
     if (uuidValidator) {
-        console.log('Hello uuid')
         try {
             const gameDB = await Videogame.findByPk(id, { include: [Genre] })
             let gameDBJSON = gameDB.toJSON()
-            gameDBJSON.genres = gameDBJSON.genres.map((g)=> g.name)
+            gameDBJSON.genres = gameDBJSON.genres.map((g) => g.name)
             res.json(gameDBJSON)
         } catch (error) {
             console.error('Videogame does not exist')
@@ -28,18 +26,18 @@ router.get('/:id', async function getVideogameById(req, res) {
     } else {
         try {
             const gameAPI = await axios.get(`${BASE_URL}${GAMES_URL}/${id}?key=${API_KEY}`)
-                let data = gameAPI.data;
-                const content = {
-                    name: data.name,
-                    image: data.background_image,
-                    genres: data.genres.map((g)=>g.name),
-                    description: data.description_raw,
-                    released: data.released,
-                    rating: data.rating,
-                    platforms: data.platforms.map((p)=>p.platform.name),
-                    id: data.id 
-                }
-                res.json(content) 
+            let data = gameAPI.data;
+            const content = {
+                name: data.name,
+                image: data.background_image,
+                genres: data.genres.map((g) => g.name),
+                description: data.description_raw,
+                released: data.released,
+                rating: data.rating,
+                platforms: data.platforms.map((p) => p.platform.name),
+                id: data.id
+            }
+            res.json(content)
         } catch (error) {
             console.error('Videogame does not exist')
             res.sendStatus(404)

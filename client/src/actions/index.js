@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
 export const GET_VIDEOGAMES_BY_NAME = 'GET_VIDEOGAMES_BY_NAME';
-export const GET_VIDEOGAME_BY_ID  = 'GET_VIDEOGAME_BY_ID';
+export const GET_VIDEOGAME_BY_ID = 'GET_VIDEOGAME_BY_ID';
 export const GET_GENRES = 'GET_GENRES';
 export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const ADD_VIDEOGAME = 'ADD_VIDEOGAME';
@@ -31,65 +31,65 @@ export const RESET_STORE = 'RESET_STORE'
 export const RESET_VIDEOGAMES = 'RESET_VIDEOGAMES'
 
 export function getVideogames() {
-    return function (dispatch) {
-        dispatch({ type: LOADING, payload: true });
-        return axios.get('http://localhost:3001/videogames')
-        .then(response => response.data)
-        .then((data) => {
-            dispatch({type: GET_VIDEOGAMES, payload: data});
-            dispatch({ type: LOADING, payload: false });
-        })
-    }
+  return function (dispatch) {
+    dispatch({ type: LOADING, payload: true });
+    return axios.get('http://localhost:3001/videogames')
+      .then(response => response.data)
+      .then((data) => {
+        dispatch({ type: GET_VIDEOGAMES, payload: data });
+        dispatch({ type: LOADING, payload: false });
+      })
+  }
 }
 
 export function getVideogamesByName(name) {
-    return function (dispatch) {
-        dispatch({ type: LOADING, payload: true });
-        axios.get(`http://localhost:3001/videogames/${name}`)
-        .then(response => response.data)
-        .then(data => {
-            dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: data});
-            dispatch({ type: LOADING, payload: false });
-        })
-    }
+  return function (dispatch) {
+    dispatch({ type: LOADING, payload: true });
+    axios.get(`http://localhost:3001/videogames/${name}`)
+      .then(response => response.data)
+      .then(data => {
+        dispatch({ type: GET_VIDEOGAMES_BY_NAME, payload: data });
+        dispatch({ type: LOADING, payload: false });
+      })
+  }
 }
 
 export function getVideogameById(id) {
-    return function (dispatch) {
-        axios.get(`http://localhost:3001/videogame/${id}`)
-        .then(response => response.data)
-        .then(data => {
-            dispatch({type: GET_VIDEOGAME_BY_ID, payload: data})
-        })
-    }
+  return function (dispatch) {
+    axios.get(`http://localhost:3001/videogame/${id}`)
+      .then(response => response.data)
+      .then(data => {
+        dispatch({ type: GET_VIDEOGAME_BY_ID, payload: data })
+      })
+  }
 }
 
 export function getGenres() {
-    return function (dispatch) {
-        axios.get(`http://localhost:3001/genres`)
-        .then(response => response.data)
-        .then(data => {
-            dispatch({type: GET_GENRES, payload: data})
-        })
-    }
+  return function (dispatch) {
+    axios.get(`http://localhost:3001/genres`)
+      .then(response => response.data)
+      .then(data => {
+        dispatch({ type: GET_GENRES, payload: data })
+      })
+  }
 }
 export function getPlatforms() {
-    return function (dispatch) {
-        axios.get(`http://localhost:3001/platforms`)
-        .then(response => response.data)
-        .then(data => {
-            dispatch({type: GET_PLATFORMS, payload: data})
-        })
-    }
+  return function (dispatch) {
+    axios.get(`http://localhost:3001/platforms`)
+      .then(response => response.data)
+      .then(data => {
+        dispatch({ type: GET_PLATFORMS, payload: data })
+      })
+  }
 }
 
-export function addVideogame(game) {  
+export function addVideogame(game) {
   return function (dispatch) {
-  axios.post('http://localhost:3001/videogame', game)
-  .then(response => response.data)
-  .then(data => {
-      dispatch({type: ADD_VIDEOGAME, payload: data})
-    });
+    axios.post('http://localhost:3001/videogame', game)
+      .then(response => response.data)
+      .then(data => {
+        dispatch({ type: ADD_VIDEOGAME, payload: data })
+      });
   }
 }
 
@@ -109,11 +109,16 @@ export function resetVideogames() {
   };
 };
 
+//Filters 
+
 export const filterByGenre = (genre) => (dispatch, getState) => {
   let filterByOrigin = getState().filterByOrigin;
   let videogames = getState().videogames;
+  // Filters every time, because if not, videogamesFiltered would end up empty.
+  // Filters by last state of filterByOrigin (unchanged).
   if (filterByOrigin !== 'All') videogames = videogames.filter((g) => (g.origin) === filterByOrigin);
-  if(genre !== 'All') videogames = videogames.filter((g) => (g.genres).includes(genre));
+  // Filters by current value of genre.
+  if (genre !== 'All') videogames = videogames.filter((g) => (g.genres).includes(genre));
   dispatch({
     type: FILTER_BY_GENRE,
     payload: {
@@ -126,7 +131,10 @@ export const filterByGenre = (genre) => (dispatch, getState) => {
 export const filterByOrigin = (origin) => (dispatch, getState) => {
   let filterByGenre = getState().filterByGenre;
   let videogames = getState().videogames;
+  // Filters every time, because if not, videogamesFiltered would end up empty.
+  // Filters by last state of filterByGenre (unchanged).
   if (filterByGenre !== 'All') videogames = videogames.filter((g) => (g.genres).includes(filterByGenre));
+   // Filters by current value of origin.
   if (origin !== 'All') videogames = videogames.filter((g) => g.origin === origin);
   dispatch({
     type: FILTER_BY_ORIGIN,
@@ -137,6 +145,9 @@ export const filterByOrigin = (origin) => (dispatch, getState) => {
   });
 };
 
+//Orders 
+
+//Depending on value of type sent into props, and current filter values, it sorts out either videogames or filteredVideogames arrays.
 export const orderAsc = (type) => (dispatch, getState) => {
   const filterByGenre = getState().filterByGenre;
   const filterByOrigin = getState().filterByOrigin;
@@ -150,7 +161,6 @@ export const orderAsc = (type) => (dispatch, getState) => {
 
         return 0;
       });
-      
       dispatch({
         type: ORDER_NAME_ASC_ALL,
         payload: {
@@ -188,7 +198,6 @@ export const orderAsc = (type) => (dispatch, getState) => {
       const videogamesOrdered = filteredVideogames.sort((a, b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
-
         return 0;
       });
       dispatch({
@@ -207,63 +216,62 @@ export const orderDesc = (type) => (dispatch, getState) => {
   const filterByOrigin = getState().filterByOrigin;
   const videogames = getState().videogames;
   const filteredVideogames = getState().filteredVideogames;
-  
-    if (filterByGenre === 'All' && filterByOrigin === 'All') {
-      if (type === RATING_DESC) {
-        const videogamesOrdered = videogames.sort(
-          (a, b) => b.rating - a.rating
-        );
-        dispatch({
-          type: ORDER_RATING_DESC_ALL,
-          payload: {
-            videogamesOrdered,
-            name: type,
-          },
-        });
-      }
-      if (type === NAME_DESC) {
-        const videogamesOrdered = videogames.sort((a, b) => {
-          if (a.name < b.name) return 1;
-          if (a.name > b.name) return -1;
-  
-          return 0;
-        });
-        dispatch({
-          type: ORDER_NAME_DESC_ALL,
-          payload: {
-            videogamesOrdered,
-            name: type,
-          },
-        });
-      }
-    } else {
-      if (type === RATING_DESC) {
-        const videogamesOrdered = filteredVideogames.sort(
-          (a, b) => b.rating - a.rating
-        );
-        dispatch({
-          type: ORDER_RATING_DESC,
-          payload: {
-            videogamesOrdered,
-            name: type,
-          },
-        });
-      }
-      if (type === NAME_DESC) {
-        const videogamesOrdered = filteredVideogames.sort((a, b) => {
-          if (a.name < b.name) return 1;
-          if (a.name > b.name) return -1;
-  
-          return 0;
-        });
-        dispatch({
-          type: ORDER_NAME_DESC,
-          payload: {
-            videogamesOrdered,
-            name: type,
-          },
-        });
-      }
+
+  if (filterByGenre === 'All' && filterByOrigin === 'All') {
+    if (type === RATING_DESC) {
+      const videogamesOrdered = videogames.sort(
+        (a, b) => b.rating - a.rating
+      );
+      dispatch({
+        type: ORDER_RATING_DESC_ALL,
+        payload: {
+          videogamesOrdered,
+          name: type,
+        },
+      });
     }
-  };
-  
+    if (type === NAME_DESC) {
+      const videogamesOrdered = videogames.sort((a, b) => {
+        if (a.name < b.name) return 1;
+        if (a.name > b.name) return -1;
+
+        return 0;
+      });
+      dispatch({
+        type: ORDER_NAME_DESC_ALL,
+        payload: {
+          videogamesOrdered,
+          name: type,
+        },
+      });
+    }
+  } else {
+    if (type === RATING_DESC) {
+      const videogamesOrdered = filteredVideogames.sort(
+        (a, b) => b.rating - a.rating
+      );
+      dispatch({
+        type: ORDER_RATING_DESC,
+        payload: {
+          videogamesOrdered,
+          name: type,
+        },
+      });
+    }
+    if (type === NAME_DESC) {
+      const videogamesOrdered = filteredVideogames.sort((a, b) => {
+        if (a.name < b.name) return 1;
+        if (a.name > b.name) return -1;
+
+        return 0;
+      });
+      dispatch({
+        type: ORDER_NAME_DESC,
+        payload: {
+          videogamesOrdered,
+          name: type,
+        },
+      });
+    }
+  }
+};
